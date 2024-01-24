@@ -1,3 +1,54 @@
 .Feed {
   margin-top: 8rem;
+  width: 50%;
+  min-width: 250px;
+  margin: 7rem auto;
+}
+.write {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: red;
+  border: 1px solid red;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 100px;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+.write:hover {
+  color: red;
+  background-color: white;
+}
+.newPost {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.NewPostInput {
+  height: 50px;
+  border: 1px solid #8080804d;
+  border-radius: 10px;
+  width: 100%;
+  margin: 1rem;
+  padding: 1rem;
+  font-size: 1.1rem;
+  outline: none;
+  color: grey;
+}
+.newPost .postButton {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: red;
+  border: 1px solid red;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 100px;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  margin: 1rem;
 }
