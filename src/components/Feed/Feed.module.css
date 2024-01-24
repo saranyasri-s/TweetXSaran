@@ -8,8 +8,8 @@
   margin-top: 1rem;
   padding: 0.5rem 1rem;
   color: white;
-  background-color: red;
-  border: 1px solid red;
+  background-color: #ff000091;
+  border: 1px solid #ff000091;
   border-radius: 10px;
   font-size: 1.1rem;
   cursor: pointer;
@@ -18,7 +18,7 @@
   font-weight: 700;
 }
 .write:hover {
-  color: red;
+  color: #ff000091;
   background-color: white;
 }
 .newPost {
@@ -26,6 +26,7 @@
   flex-flow: column;
   justify-content: flex-start;
   align-items: flex-end;
+  margin-left: 3rem;
 }
 .NewPostInput {
   height: 50px;
@@ -42,8 +43,8 @@
   margin-top: 1rem;
   padding: 0.5rem 1rem;
   color: white;
-  background-color: red;
-  border: 1px solid red;
+  background-color: #ff000091;
+  border: 1px solid #ff000091;
   border-radius: 10px;
   font-size: 1.1rem;
   cursor: pointer;
@@ -51,4 +52,7 @@
   margin-bottom: 2rem;
   font-weight: 700;
   margin: 1rem;
+}
+.post {
+  color: grey;
 }

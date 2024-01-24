@@ -1,3 +1,83 @@
-.SingleFeed{
-    
+.SingleFeed {
+  border: 1px solid #8080804d;
+  border-radius: 10px;
+  min-height: 170px;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+.SingleFeed > .upLowdiv {
+  min-height: 80px;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.left {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  width: 70%;
+}
+.upLowdiv .img {
+  width: 70px;
+  height: 70px;
+  border: 1px solid grey;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+.upLowdiv .empty {
+  display: block;
+  width: 70px;
+  height: 70px;
+  border: none;
+  margin-right: 1rem;
+}
+.halfRound {
+  width: 60px;
+  height: 30px;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  background-color: #ff000091;
+  rotate: 270deg;
+}
+.upLowdiv .name {
+  width: 50%;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.post {
+  font-size: 1rem;
+  margin-left: 2rem;
+}
+.upLowdiv > .time {
+  width: 20%;
+  color: grey;
+  font-size: 1rem;
+}
+@media (max-width: 700px) {
+  .div > .img {
+    width: 40px;
+    height: 40px;
+    border: 1px solid grey;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+  }
+  .upLowdiv .empty {
+    display: none;
+  }
+  .post {
+    font-size: 0.7rem;
+    margin-left: 0;
+  }
+  .upLowdiv > .time {
+    font-size: 0.5rem;
+  }
+  .upLowdiv > .name {
+    font-size: 0.9rem;
+  }
 }
