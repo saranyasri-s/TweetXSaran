@@ -12,7 +12,10 @@ function Auth() {
   };
   return (
     <div className={classes.Auth}>
-      Auth
+      <header>TweetX</header>
+      <button className={classes.authbutton}>
+        {authPage === "Login" ? "Create Account" : "Login"}
+      </button>
       {authPage === "Login" ? (
         <Login handleAuthPageToSignUp={handleAuthPageToSignUp}></Login>
       ) : (
