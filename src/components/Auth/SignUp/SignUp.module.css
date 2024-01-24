@@ -1,0 +1,12 @@
+.SignUp {
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: column;
+  align-items: flex-start;
+}
+.errMsg {
+  padding: 0;
+  color: red;
+  margin: 0 0 0.5rem 0;
+  padding-bottom: 1rem;
+}
