@@ -1,11 +1,5 @@
 .Auth {
-  padding: 2rem 0 2rem 2rem;
-}
-header {
-  padding: 1rem 0 2rem 0;
-  color: red;
-  font-weight: 600;
-  font-size: 2rem;
+  margin-top: 8rem;
 }
 button.authbutton {
   width: 13rem;
@@ -21,4 +15,13 @@ button.authbutton {
 }
 button:hover {
   background-color: #fff2f29c;
+}
+
+.loginSignUp {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  align-items: flex-start;
+
+  width: 100%;
 }

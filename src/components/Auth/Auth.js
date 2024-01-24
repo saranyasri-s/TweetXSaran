@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import classes from "./Auth.module.css";
 import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
+import AuthPageImage from "../../asstes/loginpageImage.png";
 function Auth() {
   const [authPage, setAuthPage] = useState("Login");
   const handleAuthPageToSignUp = () => {
@@ -12,15 +13,21 @@ function Auth() {
   };
   return (
     <div className={classes.Auth}>
-      <header>TweetX</header>
       <button className={classes.authbutton}>
         {authPage === "Login" ? "Create Account" : "Login"}
       </button>
-      {authPage === "Login" ? (
-        <Login handleAuthPageToSignUp={handleAuthPageToSignUp}></Login>
-      ) : (
-        <SignUp handleAuthPageToLogin={handleAuthPageToLogin}></SignUp>
-      )}
+      <div className={classes.loginSignUp}>
+        {authPage === "Login" ? (
+          <Login handleAuthPageToSignUp={handleAuthPageToSignUp}></Login>
+        ) : (
+          <SignUp handleAuthPageToLogin={handleAuthPageToLogin}></SignUp>
+        )}
+        <img
+          className={classes.AuthPageImage}
+          alt="image"
+          src={AuthPageImage}
+        ></img>
+      </div>
     </div>
   );
 }

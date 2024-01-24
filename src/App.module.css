@@ -1,0 +1,46 @@
+.App {
+  padding: 0 2rem;
+}
+.header {
+  width: 100%;
+  padding: 0.5rem 2rem 1rem 2rem;
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.156);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+.tweetX {
+  width: 60%;
+  color: red;
+  font-weight: 600;
+  font-size: 2rem;
+}
+.header > nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 2rem;
+  font-size: 1.3rem;
+  font-weight: 550;
+}
+.header > nav > a.inactive {
+  padding: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: #80808085;
+  font-size: 1.3rem;
+  font-weight: 550;
+}
+.header > nav > a.active {
+  padding: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: red;
+}
