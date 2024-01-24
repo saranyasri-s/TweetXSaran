@@ -1,17 +1,10 @@
 import React from "react";
 import classes from "./SignUp.module.css";
-function SignUp({ handleAuthPageToLogin }) {
+function SignUp() {
   return (
     <div>
       SignUp
-      <button
-        onClick={(e) => {
-          e.preventDefault();
-          handleAuthPageToLogin();
-        }}
-      >
-        Login
-      </button>
+      <button>SignUp</button>
     </div>
   );
 }

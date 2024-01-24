@@ -13,15 +13,16 @@ function Auth() {
   };
   return (
     <div className={classes.Auth}>
-      <button className={classes.authbutton}>
+      <button
+        className={classes.authbutton}
+        onClick={
+          authPage === "Login" ? handleAuthPageToSignUp : handleAuthPageToLogin
+        }
+      >
         {authPage === "Login" ? "Create Account" : "Login"}
       </button>
       <div className={classes.loginSignUp}>
-        {authPage === "Login" ? (
-          <Login handleAuthPageToSignUp={handleAuthPageToSignUp}></Login>
-        ) : (
-          <SignUp handleAuthPageToLogin={handleAuthPageToLogin}></SignUp>
-        )}
+        {authPage === "Login" ? <Login></Login> : <SignUp></SignUp>}
         <img
           className={classes.AuthPageImage}
           alt="image"
