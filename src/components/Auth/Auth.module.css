@@ -11,17 +11,12 @@ button.authbutton {
   cursor: pointer;
   font-weight: 530;
   font-size: 1rem;
-  margin-bottom: 5rem;
 }
 button:hover {
   background-color: #fff2f29c;
 }
 
-.loginSignUp {
-  display: flex;
-  flex-flow: row;
-  justify-content: space-around;
-  align-items: flex-start;
-
-  width: 100%;
+.AuthPageImage {
+  height: "300px";
+  width: "300px";
 }

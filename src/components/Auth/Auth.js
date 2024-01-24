@@ -23,11 +23,11 @@ function Auth() {
       </button>
       <div className={classes.loginSignUp}>
         {authPage === "Login" ? <Login></Login> : <SignUp></SignUp>}
-        <img
+        {/* <img
           className={classes.AuthPageImage}
           alt="image"
           src={AuthPageImage}
-        ></img>
+        ></img> */}
       </div>
     </div>
   );

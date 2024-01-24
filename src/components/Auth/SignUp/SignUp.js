@@ -92,6 +92,7 @@ function SignUp() {
     <div className={classes.SignUp}>
       <h2>Create Account</h2>
       <input
+        className={classes.input}
         type="text"
         name="name"
         value={name}
@@ -100,6 +101,7 @@ function SignUp() {
       ></input>
       {nameError && <p className={classes.errMsg}>{nameError}</p>}
       <input
+        className={classes.input}
         type="email"
         name="email"
         value={email}
@@ -108,6 +110,7 @@ function SignUp() {
       ></input>
       {emailError && <p className={classes.errMsg}>{emailError}</p>}
       <input
+        className={classes.input}
         type="password"
         name="password"
         value={password}
@@ -116,6 +119,7 @@ function SignUp() {
       ></input>
       {pwdError && <p className={classes.errMsg}>{pwdError}</p>}
       <input
+        className={classes.input}
         type="password"
         name="confirmPassword"
         value={confirmPassword}
@@ -123,7 +127,7 @@ function SignUp() {
         onChange={handleConfirmPasswordChange}
       ></input>
       {confirmPwdError && <p className={classes.errMsg}>{confirmPwdError}</p>}
-      <button onClick={handleSignUp}>SignUp</button>
+      <button className={classes.SignUpButton} onClick={handleSignUp}>SignUp</button>
     </div>
   );
 }
