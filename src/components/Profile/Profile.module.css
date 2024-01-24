@@ -1,3 +1,49 @@
 .Profile {
-  margin-top: 8rem;
+  margin-top: 10rem;
+  width: 40%;
+  min-width: 250px;
+  margin: 7rem auto;
+}
+.top {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.name {
+  padding: 1rem;
+  margin: 2rem 0 0 0;
+  font-size: 2rem;
+  font-weight: 600;
+  padding-bottom: 0;
+}
+.img {
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgba(128, 128, 128, 0.587);
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+.top_Bottom {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.top_Bottom > p {
+  padding: 1rem;
+  color: #8080808c;
+}
+@media (max-width: 1200px) {
+  .name {
+    padding: 0;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.4rem;
+  }
+  .top_Bottom > p {
+    padding: 0 0.2rem;
+    margin: 0.1rem 0;
+    color: #8080808c;
+  }
 }
