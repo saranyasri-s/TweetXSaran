@@ -1,6 +1,12 @@
 import React from "react";
 import classes from "./Profile.module.css";
+import Followers from "./Followers";
+import Following from "./Following";
+import { NavLink, Routes, Route, useParams } from "react-router-dom";
+import Posts from "./Posts";
+
 function Profile() {
+  const params = useParams();
   return (
     <div className={classes.Profile}>
       <div className={classes.top}>
@@ -13,7 +19,50 @@ function Profile() {
 
             <p className={classes.following}>Following : 300</p>
           </div>
-        </div>{" "}
+        </div>
+      </div>
+      <div className={classes.nav}>
+        <NavLink
+          to="/profile/posts"
+          className={({ isActive, isPending }) =>
+            isPending
+              ? classes.inactive
+              : isActive
+              ? classes.active
+              : classes.inactive
+          }
+        >
+          Posts
+        </NavLink>
+        <NavLink
+          className={({ isActive, isPending }) =>
+            isPending
+              ? classes.inactive
+              : isActive
+              ? classes.active
+              : classes.inactive
+          }
+          to="/profile/followers"
+        >
+          Followers
+        </NavLink>
+        <NavLink
+          className={({ isActive, isPending }) =>
+            isPending
+              ? classes.inactive
+              : isActive
+              ? classes.active
+              : classes.inactive
+          }
+          to="/profile/following"
+        >
+          Following
+        </NavLink>
+      </div>
+      <div>
+        {params.id === "posts" && <Posts></Posts>}
+        {params.id === "followers" && <Followers></Followers>}
+        {params.id === "following" && <Following></Following>}
       </div>
     </div>
   );

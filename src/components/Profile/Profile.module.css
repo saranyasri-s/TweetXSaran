@@ -35,6 +35,30 @@
   padding: 1rem;
   color: #8080808c;
 }
+.nav {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  border-top: 1px solid #80808085;
+}
+.nav > a.inactive {
+  padding: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  color: #80808085;
+  font-size: 1.3rem;
+  font-weight: 550;
+}
+.nav > a.active {
+  color: grey;
+  font-size: 1.3rem;
+  font-weight: 750;
+  padding: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  border-top: 1px solid grey;
+}
 @media (max-width: 1200px) {
   .name {
     padding: 0;

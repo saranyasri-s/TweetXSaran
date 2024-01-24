@@ -43,7 +43,7 @@ function App() {
               Users
             </NavLink>
             <NavLink
-              to="/profile"
+              to="/profile/posts"
               className={({ isActive, isPending }) =>
                 isPending
                   ? classes.inactive
@@ -69,9 +69,9 @@ function App() {
           element={isAuthenticated ? <Users /> : <Navigate to="/" />}
         />
         <Route
-          path="/profile"
+          path="/profile/:id"
           element={isAuthenticated ? <Profile /> : <Navigate to="/" />}
-        />
+        ></Route>
       </Routes>
     </div>
   );
