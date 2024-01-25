@@ -2,22 +2,20 @@ import classes from "./App.module.css";
 import Auth from "./components/Auth/Auth";
 import Feed from "./components/Feed/Feed";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
 import Profile from "./components/Profile/Profile";
 import Users from "./components/Users/Users";
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
-  useEffect(() => {
-    if (isAuthenticated === true) {
-      <Navigate to="/feed" />;
-    }
-  }, [isAuthenticated]);
+  const isAuthenticated = useSelector((state) => state.user.displayName);
+
   return (
     <div className={classes.App}>
       <header className={classes.header}>
         <div className={classes.tweetX}>TweetX</div>
         {isAuthenticated && (
           <nav>
+            <Navigate to="/profile/posts" />
             <NavLink
               to="/feed"
               className={({ isActive, isPending }) =>

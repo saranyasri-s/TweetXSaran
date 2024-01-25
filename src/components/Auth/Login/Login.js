@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./Login.module.css";
 import axios from "axios";
-import { auth } from "../../../firebase";
+import { Routes, Route, NavLink, Navigate } from "react-router-dom";
+
+import { collection, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
+import { auth, db } from "../../../firebase"; // Adjust the path to your firebase.js file
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../../store/UserSlice"; // Assuming your userSlice file is in the same directory
-
+import { setUser } from "../../../store/UserSlice";
 function Login() {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user); // Assuming 'user' is the key used in combineReducers
-
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setpassword] = useState("");
   const [pwdError, setPwdError] = useState("");
-
+  const [uid, setUid] = useSelector((state) => state.user.uid);
   const [isFormValid, setIsFormValid] = useState(false);
-
+  const dispatch = useDispatch();
   // Validation functions
   const isEmailValid = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -55,21 +56,67 @@ function Login() {
     if (validateForm()) {
       const loginUser = async (email, password) => {
         try {
-          const userCredential = await auth.signInWithEmailAndPassword(
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
             email,
             password
           );
           console.log("User logged in successfully");
           console.log(userCredential);
-          // const userData = {
-          //   email: userCredential.user.email,
-          //   displayName: 'John Doe',
+          const userData = {
+            email: userCredential.user.email,
+            displayName: userCredential.user.displayName,
 
+            uid: userCredential.user.uid,
+          };
+
+          // Dispatch the setUser action with the user data
+          dispatch(setUser(userData));
+
+          // const fetchUser = async () => {
+          //   try {
+          //     const querySnapshot = await getDocs(
+          //       collection(db, `users/${userCredential.user.uid}`)
+          //     );
+          //     console.log(querySnapshot);
+          //   } catch (error) {
+          //     console.error(
+          //       `Error fetching user:${userCredential.user.uid}1`,
+          //       error.message
+          //     );
+          //   }
+          // };
+          // fetchUser();
+          // try {
+          //   const userDocRef = doc(db, "users", userCredential.user.uid);
+          //   const userDoc = await getDoc(userDocRef);
+
+          //   if (userDoc.exists()) {
+          //     const userData = { uid: userDoc.id, ...userDoc.data() };
+          //     console.log("Fetched user data:", userData);
+          //     // Dispatch the setUser action with the userData
+          //   } else {
+          //     console.error("User document not found");
+          //   }
+          // } catch (error) {
+          //   console.error("Error fetching user:", error.message);
+          // }
+          // const userData = {
+          //   email: 'example@email.com',
+          //   displayName: 'John Doe',
+          //   posts: [],
+          //   following: [],
+          //   followers: [],
           //   uid: '123',
           // };
 
           // // Dispatch the setUser action with the user data
           // dispatch(setUser(userData));
+
+          setEmail("");
+          setEmailError("");
+          setpassword("");
+          setPwdError("");
         } catch (error) {
           console.error("Error logging in:", error.message);
         }

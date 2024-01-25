@@ -4,15 +4,17 @@ import Followers from "./Followers";
 import Following from "./Following";
 import { NavLink, Routes, Route, useParams } from "react-router-dom";
 import Posts from "./Posts";
-
+import { useSelector } from "react-redux";
 function Profile() {
   const params = useParams();
+  const userLogged = useSelector((state) => state.user);
+
   return (
     <div className={classes.Profile}>
       <div className={classes.top}>
         <img className={classes.img}></img>
         <div className={classes.nameFollowing}>
-          <p className={classes.name}>Arjun Reddy</p>
+          <p className={classes.name}>{userLogged.displayName}</p>
           <div className={classes.top_Bottom}>
             <p className={classes.following}>Posts : 300</p>
             <p className={classes.following}>Followers : 300</p>

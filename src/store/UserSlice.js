@@ -3,9 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   email: "",
   displayName: "",
-  posts: [],
-  following: [],
-  followers: [],
   uid: "",
 };
 
@@ -14,7 +11,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      // Assuming action.payload is an object with the properties you want to update
       return {
         ...state,
         ...action.payload,
