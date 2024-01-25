@@ -25,7 +25,9 @@ function SingleFeed({ postDetail, name, time }) {
       <div className={classes.upLowdiv}>
         <div className={classes.left}>
           <img className={classes.img}></img>
-          <p className={classes.name}>{name}</p>
+          <p className={classes.name} style={{ textTransform: "capitalize" }}>
+            {name}
+          </p>
         </div>
         <p className={classes.time}>{timeAgo(time)}</p>
       </div>

@@ -35,7 +35,9 @@ function Profile() {
       <div className={classes.top}>
         <img className={classes.img}></img>
         <div className={classes.nameFollowing}>
-          <p className={classes.name}>{userLogged.displayName}</p>
+          <p className={classes.name} style={{ textTransform: "capitalize" }}>
+            {userLogged.displayName}
+          </p>
           <div className={classes.top_Bottom}>
             <p className={classes.following}>
               Posts : {userLogged.posts.length}

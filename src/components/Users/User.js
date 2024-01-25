@@ -45,7 +45,9 @@ function User({ user }) {
       <div className={classes.left}>
         <img className={classes.img}></img>
         <div className={classes.nameFollowing}>
-          <p className={classes.name}>{user.displayName}</p>
+          <p className={classes.name} style={{ textTransform: "capitalize" }}>
+            {user.displayName}
+          </p>
           <p className={classes.following}>
             Following:{user.following ? user.following.length : " 0 "}
           </p>
