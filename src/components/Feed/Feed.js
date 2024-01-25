@@ -69,7 +69,9 @@ function Feed() {
         const userDocRef = doc(db, "users", userLogged.id);
 
         // Update the user information
-        const postCreated = { postDetail: { post: newPost, time: "90" } };
+        const postCreated = {
+          postDetail: { post: newPost, time: new Date().toISOString() },
+        };
         await updateDoc(userDocRef, {
           posts: [...userLogged.posts, postCreated], // Add other fields you want to update
         });
@@ -106,6 +108,12 @@ function Feed() {
     }
     return false;
   });
+  const sortedPosts = [...uniquePosts].sort((a, b) => {
+    const timeA = new Date(a.postDetail.time);
+    const timeB = new Date(b.postDetail.time);
+
+    return timeB - timeA;
+  });
   return (
     <div className={classes.Feed}>
       <button
@@ -132,11 +140,11 @@ function Feed() {
         </div>
       )}
       {console.log(uniquePosts)}
-      {uniquePosts.map((post) => (
+      {sortedPosts.map((post) => (
         <SingleFeed
           postDetail={post.postDetail.post}
           name={post.displayName}
-          time="10"
+          time={post.postDetail.time}
         ></SingleFeed>
       ))}
     </div>

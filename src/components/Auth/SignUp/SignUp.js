@@ -129,7 +129,7 @@ function SignUp({ handleAuthPageToLogin }) {
               {
                 postDetail: {
                   post: "my first post",
-                  time: "54",
+                  time: new Date().toISOString(),
                 },
               },
             ],
