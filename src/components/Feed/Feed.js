@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 function Feed() {
   const [createNewPost, setCreateNewPost] = useState(false);
   const [newPost, setNewPost] = useState("");
+  const [myArray, setMyArray] = useState([]);
+
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
   const userLogged = useSelector((state) => state.user);
@@ -22,14 +24,15 @@ function Feed() {
             if (userDoc.exists()) {
               // If the document exists, set the user state
               const followingMember = { ...userDoc.data(), id: userDoc.id };
-              for (let j = 0; i < followingMember.posts.length; j++) {
+              let postsNewPosts = [];
+              for (let j = 0; j < followingMember.posts.length; j++) {
                 let newpost = {
                   displayName: followingMember.displayName,
                   postDetail: followingMember.posts[j].postDetail,
                 };
-                let newposts = posts.concat(newpost);
-                setPosts(newposts);
+                postsNewPosts.push(newpost);
               }
+              setPosts((prevPosts) => [...prevPosts, ...postsNewPosts]);
             } else {
               // Handle the case where the user doesn't exist
               console.log("User not found");
@@ -43,6 +46,7 @@ function Feed() {
       handleGetSingleUser();
     }
   }, [userLogged]);
+
   const handlePostChange = (e) => {
     e.preventDefault();
     setNewPost(e.target.value);
