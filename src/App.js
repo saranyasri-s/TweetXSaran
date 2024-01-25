@@ -15,7 +15,6 @@ function App() {
         <div className={classes.tweetX}>TweetX</div>
         {isAuthenticated && (
           <nav>
-            <Navigate to="/profile/posts" />
             <NavLink
               to="/feed"
               className={({ isActive, isPending }) =>

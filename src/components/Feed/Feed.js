@@ -40,10 +40,8 @@ function Feed() {
             Post
           </button>
         </div>
-      )}{" "}
-      <SingleFeed></SingleFeed>
-      <SingleFeed></SingleFeed>
-      <SingleFeed></SingleFeed>
+      )}
+      <SingleFeed postDetail="yufu" name="fuiyf7f" time="10"></SingleFeed>
     </div>
   );
 }

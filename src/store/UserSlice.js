@@ -4,6 +4,7 @@ const initialState = {
   email: "",
   displayName: "",
   uid: "",
+  userId:""
 };
 
 const userSlice = createSlice({

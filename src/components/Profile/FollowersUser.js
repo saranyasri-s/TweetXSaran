@@ -1,6 +1,6 @@
 import React from "react";
-import classes from "./User.module.css";
-function User({ displayName,following }) {
+import classes from "./FollowersUser.module.css";
+function User({ displayName, following }) {
   return (
     <div className={classes.User}>
       <div className={classes.left}>
@@ -12,8 +12,16 @@ function User({ displayName,following }) {
           </p>
         </div>
       </div>
-      {/* <p className={classes.followingStatus} style={{ fontWeight: "600", color: "grey" }}>Following</p> */}
-      <button className={classes.button}>Follow</button>
+      {following === "true" ? (
+        <p
+          className={classes.followingStatus}
+          style={{ fontWeight: "600", color: "grey" }}
+        >
+          Following
+        </p>
+      ) : (
+        <button className={classes.button}>Follow</button>
+      )}
     </div>
   );
 }

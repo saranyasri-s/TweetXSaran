@@ -1,13 +1,15 @@
 import React from "react";
-import User from "../Users/User"
+import User from "../Users/User";
 import classes from "./Following.module.css";
-function Following() {
+import FollowersUser from "./FollowersUser";
+
+function Following({ userForOtherData }) {
   return (
     <div className={classes.Following}>
-      <User></User>
-      <User></User>
-      <User></User>
-      <User></User>
+      {/* {userForOtherData.following.map((post) => (
+        <User />
+      ))} */}
+      <FollowersUser displayName="uiyfgui" following="true"></FollowersUser>
     </div>
   );
 }

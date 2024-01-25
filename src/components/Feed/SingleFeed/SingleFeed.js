@@ -1,14 +1,14 @@
 import React from "react";
 import classes from "./SingleFeed.module.css";
-function SingleFeed() {
+function SingleFeed({ postDetail, name, time }) {
   return (
     <div className={classes.SingleFeed}>
       <div className={classes.upLowdiv}>
         <div className={classes.left}>
           <img className={classes.img}></img>
-          <p className={classes.name}>Arjun Reddy</p>
+          <p className={classes.name}>{name}</p>
         </div>
-        <p className={classes.time}>10 mins ago</p>
+        <p className={classes.time}>{time} mins ago</p>
       </div>
       <div className={classes.upLowdiv}>
         <div className={classes.left}>
@@ -17,9 +17,7 @@ function SingleFeed() {
             className={classes.post}
             style={{ marginLeft: "1rem", color: "grey", paddingLeft: "2rem" }}
           >
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500st
+            {postDetail}
           </p>
         </div>
         <div className={classes.halfRound}> </div>

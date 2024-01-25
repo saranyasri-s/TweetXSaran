@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import classes from "./Login.module.css";
 import axios from "axios";
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../../firebase"; // Adjust the path to your firebase.js file
@@ -17,6 +17,7 @@ function Login() {
   const [uid, setUid] = useSelector((state) => state.user.uid);
   const [isFormValid, setIsFormValid] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // Validation functions
   const isEmailValid = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -117,6 +118,7 @@ function Login() {
           setEmailError("");
           setpassword("");
           setPwdError("");
+          navigate("/users");
         } catch (error) {
           console.error("Error logging in:", error.message);
         }
