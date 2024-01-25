@@ -22,7 +22,7 @@ function User({ user }) {
 
         // Update the user information
         await updateDoc(userDocRef, {
-          displayName: "New Display Name-saran", // Update with the new display name
+          // Update with the new display name
           following: [...userLogged.following, user.id], // Add other fields you want to update
         });
         dispatch(

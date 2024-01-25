@@ -15,8 +15,7 @@ function Profile() {
   const params = useParams();
   const userLogged = useSelector((state) => state.user);
   const users = useSelector((state) => state.users);
-  console.log(users);
-  const userForOtherData = users?.filter((user) => user.uid === userLogged.uid);
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -30,37 +29,24 @@ function Profile() {
 
     fetchUsers();
   }, []);
-  {
-    console.log(users);
-  }
-  // useEffect(() => {
-  //   const userRef = ref(database, `users/vwjTIogWjvyXlD24oYYV`);
-  //   get(userRef)
-  //     .then((snapshot) => {
-  //       if (snapshot.exists()) {
-  //         const userData = snapshot.val();
-  //         console.log("User Data:", userData);
-  //       } else {
-  //         console.log("User not found");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error retrieving user:", error.message);
-  //     });
-  // }, []);
 
   return (
     <div className={classes.Profile}>
-      {console.log(userForOtherData)}
       <div className={classes.top}>
         <img className={classes.img}></img>
         <div className={classes.nameFollowing}>
           <p className={classes.name}>{userLogged.displayName}</p>
           <div className={classes.top_Bottom}>
-            <p className={classes.following}>Posts : 300</p>
-            <p className={classes.following}>Followers : 300</p>
+            <p className={classes.following}>
+              Posts : {userLogged.posts.length}
+            </p>
+            <p className={classes.following}>
+              Followers : {userLogged.followers.length}
+            </p>
 
-            <p className={classes.following}>Following : 300</p>
+            <p className={classes.following}>
+              Following : {userLogged.following.length}
+            </p>
           </div>
         </div>
       </div>
@@ -102,13 +88,13 @@ function Profile() {
           Following
         </NavLink>
       </div>
-      {/* <div>
-     {params.id === "posts" && (
-          <Posts userForOtherData={userForOtherData[0]}></Posts>
+      <div>
+        {params.id === "posts" && <Posts userLogged={userLogged}></Posts>}
+        {/* {params.id === "followers" && <Followers userLogged={userLogged}></Followers>} */}
+        {params.id === "following" && (
+          <Following userLogged={userLogged}></Following>
         )}
-        {params.id === "followers" && <Followers></Followers>}
-        {params.id === "following" && <Following></Following>}
-      </div> */}
+      </div>
     </div>
   );
 }

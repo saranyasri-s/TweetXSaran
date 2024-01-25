@@ -2,14 +2,13 @@ import React from "react";
 import classes from "./Followers.module.css";
 
 import FollowersUser from "./FollowersUser";
-function Followers({ userForOtherData }) {
-  console.log(userForOtherData);
+function Followers({ userLogged }) {
   return (
     <div className={classes.Followers}>
       <div className={classes.Followers}>
-        {userForOtherData.followers.map((follower) => (
+        {userLogged.followers.map((follower) => (
           <FollowersUser
-            displayName={userForOtherData.displayName}
+            displayName={userLogged.displayName}
             following="false"
           ></FollowersUser>
         ))}
