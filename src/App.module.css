@@ -1,6 +1,24 @@
 .App {
   padding: 0 2rem;
 }
+.button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: #ff000091;
+  border: 1px solid #ff000091;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 100px;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  margin: 1rem;
+}
+.button:hover {
+  color: #ff000091;
+  background-color: white;
+}
 .header {
   width: 100%;
   padding: 0.5rem 2rem 1rem 2rem;
