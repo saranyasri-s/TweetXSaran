@@ -36,6 +36,7 @@
   color: #8080808c;
 }
 .nav {
+  margin-top: 2rem;
   display: flex;
   flex-flow: row;
   justify-content: center;

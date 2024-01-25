@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import classes from "./SignUp.module.css";
-
+import axios from "axios";
+import { Routes, Route, NavLink, Navigate } from "react-router-dom";
 function SignUp() {
   const [name, setname] = useState("");
   const [nameError, setNameError] = useState("");
@@ -15,35 +16,28 @@ function SignUp() {
   // Validation functions
   const isEmailValid = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (emailRegex.test(email)) {
-      setEmailError("");
-    } else {
-      setEmailError("Enter valid email");
-    }
+    const isValid = emailRegex.test(email);
+    setEmailError(isValid ? "" : "Enter valid email");
+    return isValid;
   };
 
   const isPasswordValid = (password) => {
-    if (password.length < 6) {
-      setPwdError("Password has to be atleast 6 characters");
-    } else {
-      setPwdError("");
-    }
+    const isValid = password.length >= 6;
+    setPwdError(isValid ? "" : "Password must be at least 6 characters");
+    return isValid;
   };
 
   const isConfirmPasswordValid = (confirmPassword) => {
-    if (confirmPassword === password) {
-      setConfirmPwdError("");
-    } else {
-      setConfirmPwdError("Confirm password should match the password");
-    }
+    const isValid = confirmPassword === password;
+    setConfirmPwdError(
+      isValid ? "" : "Confirm password should match the password"
+    );
+    return isValid;
   };
   const isNameValid = (name) => {
-    if (name.length) {
-      setNameError("");
-    } else {
-      setNameError("Enter valid Name");
-    }
+    const isValid = name.length > 0;
+    setNameError(isValid ? "" : "Enter valid Name");
+    return isValid;
   };
   // Update state and validate on input change
   const handleNameChange = (event) => {
@@ -67,22 +61,51 @@ function SignUp() {
   };
 
   const validateForm = () => {
-    isNameValid(name);
-    isEmailValid(email);
-    isPasswordValid(password);
-    isConfirmPasswordValid(confirmPassword);
+    const isNameValidResult = isNameValid(name);
+    const isEmailValidResult = isEmailValid(email);
+    const isPasswordValidResult = isPasswordValid(password);
+    const isConfirmPasswordValidResult =
+      isConfirmPasswordValid(confirmPassword);
+
     setIsFormValid(
-      isNameValid(name) &&
-        isEmailValid(email) &&
-        isPasswordValid(password) &&
-        isConfirmPasswordValid(confirmPassword)
+      isNameValidResult &&
+        isEmailValidResult &&
+        isPasswordValidResult &&
+        isConfirmPasswordValidResult
+    );
+
+    return (
+      isNameValidResult &&
+      isEmailValidResult &&
+      isPasswordValidResult &&
+      isConfirmPasswordValidResult
     );
   };
 
   const handleSignUp = () => {
-    validateForm();
-    if (isFormValid) {
-      console.log("Form submitted");
+    if (validateForm()) {
+      const signUpUser = async (name, email, password) => {
+        try {
+          const response = await axios.post(
+            "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBG1YDW2RDiPI3tcvtZ8jGZMm6FcGGU50U",
+            {
+              email: email,
+              password: password,
+              returnSecureToken: true,
+            }
+          );
+
+          // Handle the response or perform additional actions if needed
+          console.log("User signed up successfully:", response.data);
+        } catch (error) {
+          // Handle errors, e.g., display an error message to the user
+          console.error(
+            "Error signing up user:",
+            error.response.data.error.message
+          );
+        }
+      };
+      signUpUser(name, email, password);
     } else {
       console.log("Invalid form");
     }
@@ -127,7 +150,9 @@ function SignUp() {
         onChange={handleConfirmPasswordChange}
       ></input>
       {confirmPwdError && <p className={classes.errMsg}>{confirmPwdError}</p>}
-      <button className={classes.SignUpButton} onClick={handleSignUp}>SignUp</button>
+      <button className={classes.SignUpButton} onClick={handleSignUp}>
+        SignUp
+      </button>
     </div>
   );
 }

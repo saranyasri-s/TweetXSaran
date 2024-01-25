@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import classes from "./Login.module.css";
+import axios from "axios";
 function Login() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -11,20 +12,15 @@ function Login() {
   // Validation functions
   const isEmailValid = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (emailRegex.test(email)) {
-      setEmailError("");
-    } else {
-      setEmailError("Enter valid email");
-    }
+    const isValid = emailRegex.test(email);
+    setEmailError(isValid ? "" : "Enter valid email");
+    return isValid;
   };
 
   const isPasswordValid = (password) => {
-    if (password.length < 6) {
-      setPwdError("Password has to be atleast 6 characters");
-    } else {
-      setPwdError("");
-    }
+    const isValid = password.length >= 6;
+    setPwdError(isValid ? "" : "Password must be at least 6 characters");
+    return isValid;
   };
 
   // Update state and validate on input change
@@ -40,16 +36,38 @@ function Login() {
   };
 
   const validateForm = () => {
-    isEmailValid(email);
-    isPasswordValid(password);
+    const isEmailValidResult = isEmailValid(email);
+    const isPasswordValidResult = isPasswordValid(password);
 
-    setIsFormValid(isEmailValid(email) && isPasswordValid(password));
+    setIsFormValid(isEmailValidResult && isPasswordValidResult);
+
+    return isEmailValidResult && isPasswordValidResult;
   };
 
   const handleLogin = () => {
-    validateForm();
-    if (isFormValid) {
-      console.log("Form submitted");
+    if (validateForm()) {
+      const loginUser = async (email, password) => {
+        try {
+          const response = await axios.post(
+            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBG1YDW2RDiPI3tcvtZ8jGZMm6FcGGU50U",
+            {
+              email: email,
+              password: password,
+              returnSecureToken: true,
+            }
+          );
+
+          // Handle the response or perform additional actions if needed
+          console.log("User logged in successfully:", response.data);
+        } catch (error) {
+          // Handle errors, e.g., display an error message to the user
+          console.error(
+            "Error logging in user:",
+            error.response.data.error.message
+          );
+        }
+      };
+      loginUser(email, password);
     } else {
       console.log("Invalid form");
     }
