@@ -16,6 +16,7 @@ function SignUp({ handleAuthPageToLogin }) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPwdError, setConfirmPwdError] = useState("");
   const [isFormValid, setIsFormValid] = useState(false);
+  const [loading, setLoading] = useState(false); // New loading state
 
   // Validation functions
   const isEmailValid = (email) => {
@@ -88,6 +89,7 @@ function SignUp({ handleAuthPageToLogin }) {
 
   const handleSignUp = () => {
     if (validateForm()) {
+      setLoading(true);
       const signUpUser = async (name, email, password) => {
         // try {
         //   const response = await axios.post(
@@ -151,13 +153,10 @@ function SignUp({ handleAuthPageToLogin }) {
           handleAuthPageToLogin();
         } catch (error) {
           console.log(error);
+        } finally {
+          setLoading(false); // Set loading to false after signup attempt (whether successful or not)
         }
-        // try {
-        //   const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
-        //   console.log('User created successfully:', userCredential.user);
-        // } catch (error) {
-        //   console.error('Error creating user:', error.message);
-        // }
+       
       };
       signUpUser(name, email, password);
     } else {
@@ -205,7 +204,7 @@ function SignUp({ handleAuthPageToLogin }) {
       ></input>
       {confirmPwdError && <p className={classes.errMsg}>{confirmPwdError}</p>}
       <button className={classes.SignUpButton} onClick={handleSignUp}>
-        SignUp
+        {loading ? "Signing Up..." : "SignUp"}
       </button>
     </div>
   );

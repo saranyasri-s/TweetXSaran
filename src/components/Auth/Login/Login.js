@@ -16,6 +16,8 @@ function Login() {
   const [pwdError, setPwdError] = useState("");
   const [uid, setUid] = useSelector((state) => state.user.uid);
   const [isFormValid, setIsFormValid] = useState(false);
+  const [loading, setLoading] = useState(false); // New loading state
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // Validation functions
@@ -55,6 +57,7 @@ function Login() {
 
   const handleLogin = () => {
     if (validateForm()) {
+      setLoading(true);
       const loginUser = async (email, password) => {
         try {
           const userCredential = await signInWithEmailAndPassword(
@@ -62,7 +65,7 @@ function Login() {
             email,
             password
           );
-        
+
           const userData = {
             email: userCredential.user.email,
             displayName: userCredential.user.displayName,
@@ -73,7 +76,6 @@ function Login() {
           // Dispatch the setUser action with the user data
           dispatch(setUser(userData));
 
-          
           setEmail("");
           setEmailError("");
           setpassword("");
@@ -81,8 +83,9 @@ function Login() {
           navigate("/users");
         } catch (error) {
           console.error("Error logging in:", error.message);
+        } finally {
+          setLoading(false); // Set loading to false after signup attempt (whether successful or not)
         }
-       
       };
       loginUser(email, password);
     } else {
@@ -112,7 +115,7 @@ function Login() {
       ></input>
       {pwdError && <p className={classes.errMsg}>{pwdError}</p>}
       <button className={classes.SignUpButton} onClick={handleLogin}>
-        Login
+        {loading ? "Logging in..." : "Login"}
       </button>
     </div>
   );
