@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import classes from "./Login.module.css";
 import axios from "axios";
+import { auth } from "../../../firebase"; // Adjust the path to your firebase.js file
+
 function Login() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -48,24 +50,34 @@ function Login() {
     if (validateForm()) {
       const loginUser = async (email, password) => {
         try {
-          const response = await axios.post(
-            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBG1YDW2RDiPI3tcvtZ8jGZMm6FcGGU50U",
-            {
-              email: email,
-              password: password,
-              returnSecureToken: true,
-            }
+          const userCredential = await auth.signInWithEmailAndPassword(
+            email,
+            password
           );
-
-          // Handle the response or perform additional actions if needed
-          console.log("User logged in successfully:", response.data);
+          console.log("User logged in successfully");
+          console.log(userCredential);
         } catch (error) {
-          // Handle errors, e.g., display an error message to the user
-          console.error(
-            "Error logging in user:",
-            error.response.data.error.message
-          );
+          console.error("Error logging in:", error.message);
         }
+        // try {
+        //   const response = await axios.post(
+        //     "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBG1YDW2RDiPI3tcvtZ8jGZMm6FcGGU50U",
+        //     {
+        //       email: email,
+        //       password: password,
+        //       returnSecureToken: true,
+        //     }
+        //   );
+
+        //   // Handle the response or perform additional actions if needed
+        //   console.log("User logged in successfully:", response.data);
+        // } catch (error) {
+        //   // Handle errors, e.g., display an error message to the user
+        //   console.error(
+        //     "Error logging in user:",
+        //     error.response.data.error.message
+        //   );
+        // }
       };
       loginUser(email, password);
     } else {
