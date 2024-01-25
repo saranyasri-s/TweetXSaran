@@ -22,7 +22,7 @@ function Auth() {
         {authPage === "Login" ? "Create Account" : "Login"}
       </button>
       <div className={classes.loginSignUp}>
-        {authPage === "Login" ? <Login></Login> : <SignUp></SignUp>}
+        {authPage === "Login" ? <Login></Login> : <SignUp handleAuthPageToLogin={handleAuthPageToLogin}></SignUp>}
         {/* <img
           className={classes.AuthPageImage}
           alt="image"

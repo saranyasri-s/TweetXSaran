@@ -1,9 +1,14 @@
 import React, { useState } from "react";
 import classes from "./Login.module.css";
 import axios from "axios";
-import { auth } from "../../../firebase"; // Adjust the path to your firebase.js file
+import { auth } from "../../../firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../../../store/UserSlice"; // Assuming your userSlice file is in the same directory
 
 function Login() {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user); // Assuming 'user' is the key used in combineReducers
+
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setpassword] = useState("");
@@ -56,6 +61,15 @@ function Login() {
           );
           console.log("User logged in successfully");
           console.log(userCredential);
+          // const userData = {
+          //   email: userCredential.user.email,
+          //   displayName: 'John Doe',
+
+          //   uid: '123',
+          // };
+
+          // // Dispatch the setUser action with the user data
+          // dispatch(setUser(userData));
         } catch (error) {
           console.error("Error logging in:", error.message);
         }

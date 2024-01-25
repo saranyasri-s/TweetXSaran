@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import classes from "./SignUp.module.css";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../../../firebase";
+import { auth, db } from "../../../firebase";
+import { collection, addDoc } from "firebase/firestore";
+
 import axios from "axios";
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
-function SignUp() {
+function SignUp({ handleAuthPageToLogin }) {
   const [name, setname] = useState("");
   const [nameError, setNameError] = useState("");
   const [email, setEmail] = useState("");
@@ -119,9 +121,34 @@ function SignUp() {
 
           // Update the user's profile with the additional information
           await updateProfile(userCredential.user, additionalUserInfo);
-
+          const userDocRef = await addDoc(collection(db, "users"), {
+            uid: userCredential.user.uid,
+            email: userCredential.user.email,
+            displayName: userCredential.user.displayName,
+            posts: [
+              {
+                postDetail: {
+                  post: "my first post",
+                  time: "54",
+                },
+              },
+            ],
+            followers: [],
+            following: [],
+            // Add more fields as needed
+          });
+          console.log(userDocRef);
           console.log("User created successfully:", userCredential.user);
           console.log(userCredential);
+          setConfirmPassword("");
+          setpassword("");
+          setEmail("");
+          setname("");
+          setNameError("");
+          setEmailError("");
+          setPwdError("");
+          setConfirmPwdError("");
+          handleAuthPageToLogin();
         } catch (error) {
           console.log(error);
         }
