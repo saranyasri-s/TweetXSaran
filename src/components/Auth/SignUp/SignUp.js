@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import classes from "./SignUp.module.css";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../../../firebase";
 import axios from "axios";
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
 function SignUp() {
@@ -85,25 +87,50 @@ function SignUp() {
   const handleSignUp = () => {
     if (validateForm()) {
       const signUpUser = async (name, email, password) => {
-        try {
-          const response = await axios.post(
-            "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBG1YDW2RDiPI3tcvtZ8jGZMm6FcGGU50U",
-            {
-              email: email,
-              password: password,
-              returnSecureToken: true,
-            }
-          );
+        // try {
+        //   const response = await axios.post(
+        //     "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBG1YDW2RDiPI3tcvtZ8jGZMm6FcGGU50U",
+        //     {
+        //       email: email,
+        //       password: password,
+        //       returnSecureToken: true,
+        //     }
+        //   );
 
-          // Handle the response or perform additional actions if needed
-          console.log("User signed up successfully:", response.data);
-        } catch (error) {
-          // Handle errors, e.g., display an error message to the user
-          console.error(
-            "Error signing up user:",
-            error.response.data.error.message
+        //   // Handle the response or perform additional actions if needed
+        //   console.log("User signed up successfully:", response.data);
+        // } catch (error) {
+        //   // Handle errors, e.g., display an error message to the user
+        //   console.error(
+        //     "Error signing up user:",
+        //     error.response.data.error.message
+        //   );
+        // }
+        try {
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
           );
+          const additionalUserInfo = {
+            displayName: name, // Replace with the user's name
+            // You can add more additional information as needed
+          };
+
+          // Update the user's profile with the additional information
+          await updateProfile(userCredential.user, additionalUserInfo);
+
+          console.log("User created successfully:", userCredential.user);
+          console.log(userCredential);
+        } catch (error) {
+          console.log(error);
         }
+        // try {
+        //   const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+        //   console.log('User created successfully:', userCredential.user);
+        // } catch (error) {
+        //   console.error('Error creating user:', error.message);
+        // }
       };
       signUpUser(name, email, password);
     } else {
