@@ -22,7 +22,7 @@ function Users() {
           // Add the id property to userData
           return { id: doc.id, ...userData };
         });
-        console.log(userList);
+
         const newUserList = userList.filter((user) => user.uid !== targetUid);
         const targetUser = userList.find((user) => user.uid === targetUid);
         dispatch(setUsers(newUserList));
@@ -34,9 +34,7 @@ function Users() {
 
     fetchUsers();
   }, []);
-  {
-    console.log(users);
-  }
+
   return (
     <div className={classes.Users}>
       {users.map((user) => (

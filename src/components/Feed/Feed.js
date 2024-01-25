@@ -11,9 +11,19 @@ function Feed() {
   const [myArray, setMyArray] = useState([]);
 
   const dispatch = useDispatch();
-  const [posts, setPosts] = useState([]);
+
   const userLogged = useSelector((state) => state.user);
+  const [posts, setPosts] = useState([]);
+
   useEffect(() => {
+    for (let l = 0; l < userLogged.posts.length; l++) {
+      let newPost = {
+        displayName: userLogged.displayName,
+        postDetail: userLogged.posts[l].postDetail,
+      };
+      setPosts((prevPosts) => [...prevPosts, newPost]);
+    }
+
     for (let i = 0; i < userLogged.following.length; i++) {
       const handleGetSingleUser = () => {
         const fetchUser = async (userId) => {
@@ -46,7 +56,10 @@ function Feed() {
       handleGetSingleUser();
     }
   }, [userLogged]);
-
+  const uniqueArray = [];
+  for (let y = 0; y < posts.length; y = y + 2) {
+    uniqueArray.push(posts[y]);
+  }
   const handlePostChange = (e) => {
     e.preventDefault();
     setNewPost(e.target.value);
@@ -60,7 +73,7 @@ function Feed() {
   };
   return (
     <div className={classes.Feed}>
-      {console.log(posts)}
+    
       <button
         onClick={() => {
           setCreateNewPost(true);
@@ -84,7 +97,8 @@ function Feed() {
           </button>
         </div>
       )}
-      {posts.map((post) => (
+     
+      {uniqueArray.map((post) => (
         <SingleFeed
           postDetail={post.postDetail.post}
           name={post.displayName}

@@ -62,8 +62,7 @@ function Login() {
             email,
             password
           );
-          console.log("User logged in successfully");
-          console.log(userCredential);
+        
           const userData = {
             email: userCredential.user.email,
             displayName: userCredential.user.displayName,
@@ -74,46 +73,7 @@ function Login() {
           // Dispatch the setUser action with the user data
           dispatch(setUser(userData));
 
-          // const fetchUser = async () => {
-          //   try {
-          //     const querySnapshot = await getDocs(
-          //       collection(db, `users/${userCredential.user.uid}`)
-          //     );
-          //     console.log(querySnapshot);
-          //   } catch (error) {
-          //     console.error(
-          //       `Error fetching user:${userCredential.user.uid}1`,
-          //       error.message
-          //     );
-          //   }
-          // };
-          // fetchUser();
-          // try {
-          //   const userDocRef = doc(db, "users", userCredential.user.uid);
-          //   const userDoc = await getDoc(userDocRef);
-
-          //   if (userDoc.exists()) {
-          //     const userData = { uid: userDoc.id, ...userDoc.data() };
-          //     console.log("Fetched user data:", userData);
-          //     // Dispatch the setUser action with the userData
-          //   } else {
-          //     console.error("User document not found");
-          //   }
-          // } catch (error) {
-          //   console.error("Error fetching user:", error.message);
-          // }
-          // const userData = {
-          //   email: 'example@email.com',
-          //   displayName: 'John Doe',
-          //   posts: [],
-          //   following: [],
-          //   followers: [],
-          //   uid: '123',
-          // };
-
-          // // Dispatch the setUser action with the user data
-          // dispatch(setUser(userData));
-
+          
           setEmail("");
           setEmailError("");
           setpassword("");
@@ -122,25 +82,7 @@ function Login() {
         } catch (error) {
           console.error("Error logging in:", error.message);
         }
-        // try {
-        //   const response = await axios.post(
-        //     "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBG1YDW2RDiPI3tcvtZ8jGZMm6FcGGU50U",
-        //     {
-        //       email: email,
-        //       password: password,
-        //       returnSecureToken: true,
-        //     }
-        //   );
-
-        //   // Handle the response or perform additional actions if needed
-        //   console.log("User logged in successfully:", response.data);
-        // } catch (error) {
-        //   // Handle errors, e.g., display an error message to the user
-        //   console.error(
-        //     "Error logging in user:",
-        //     error.response.data.error.message
-        //   );
-        // }
+       
       };
       loginUser(email, password);
     } else {

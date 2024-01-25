@@ -14,7 +14,7 @@ function User({ user }) {
   const targetUid = useSelector((state) => state.user.uid);
 
   const userLogged = useSelector((state) => state.user);
-  console.log(userLogged);
+
   const handleUpdateUser = async () => {
     try {
       if (userLogged) {

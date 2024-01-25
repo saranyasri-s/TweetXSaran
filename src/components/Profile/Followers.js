@@ -52,8 +52,7 @@ function Followers({ userLogged }) {
 
   return (
     <div className={classes.Followers}>
-      {console.log(followers)}
-      {console.log(uniqueArray)}
+     
       {uniqueArray.map((user) => (
         <User key={user.id} user={user}></User>
       ))}
