@@ -5,6 +5,8 @@ import { db } from "../../firebase"; // Adjust the path to your firebase.js file
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { setFollowing } from "../../store/FollowingSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { setUser } from "../../store/UserSlice";
+
 function Feed() {
   const [createNewPost, setCreateNewPost] = useState(false);
   const [newPost, setNewPost] = useState("");
@@ -17,11 +19,11 @@ function Feed() {
 
   useEffect(() => {
     for (let l = 0; l < userLogged.posts.length; l++) {
-      let newPost = {
+      let newPostDetail = {
         displayName: userLogged.displayName,
         postDetail: userLogged.posts[l].postDetail,
       };
-      setPosts((prevPosts) => [...prevPosts, newPost]);
+      setPosts((prevPosts) => [...prevPosts, newPostDetail]);
     }
 
     for (let i = 0; i < userLogged.following.length; i++) {
@@ -56,24 +58,56 @@ function Feed() {
       handleGetSingleUser();
     }
   }, [userLogged]);
-  const uniqueArray = [];
-  for (let y = 0; y < posts.length; y = y + 2) {
-    uniqueArray.push(posts[y]);
-  }
+
   const handlePostChange = (e) => {
     e.preventDefault();
     setNewPost(e.target.value);
   };
+  const handleAddNewPost = async () => {
+    try {
+      if (userLogged) {
+        const userDocRef = doc(db, "users", userLogged.id);
+
+        // Update the user information
+        const postCreated = { postDetail: { post: newPost, time: "90" } };
+        await updateDoc(userDocRef, {
+          posts: [...userLogged.posts, postCreated], // Add other fields you want to update
+        });
+        dispatch(
+          setUser({
+            ...userLogged,
+            posts: [...userLogged.posts, postCreated],
+          })
+        );
+        setCreateNewPost(false);
+        setNewPost("");
+        console.log("User updated successfully");
+      } else {
+        console.log("User not found");
+      }
+    } catch (error) {
+      console.error("Error updating user:", error.message);
+    }
+  };
   const submitnewPost = (e) => {
     e.preventDefault();
     if (newPost.length) {
-      // i will  enter code here to put request
+      handleAddNewPost();
     }
-    setCreateNewPost(false);
   };
+  const uniquePostsSet = new Set();
+
+  // Iterate through the posts array and add unique posts to the Set
+  const uniquePosts = posts.filter((post) => {
+    const postKey = `${post.displayName}-${JSON.stringify(post.postDetail)}`;
+    if (!uniquePostsSet.has(postKey)) {
+      uniquePostsSet.add(postKey);
+      return true;
+    }
+    return false;
+  });
   return (
     <div className={classes.Feed}>
-    
       <button
         onClick={() => {
           setCreateNewPost(true);
@@ -92,13 +126,13 @@ function Feed() {
             onChange={handlePostChange}
             maxLength={100}
           ></textarea>
-          <button className={classes.postButton} onClick={submitnewPost}>
+          <button className={classes.postButton} onClick={handleAddNewPost}>
             Post
           </button>
         </div>
       )}
-     
-      {uniqueArray.map((post) => (
+      {console.log(uniquePosts)}
+      {uniquePosts.map((post) => (
         <SingleFeed
           postDetail={post.postDetail.post}
           name={post.displayName}
