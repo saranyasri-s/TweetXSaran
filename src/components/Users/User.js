@@ -1,14 +1,14 @@
 import React from "react";
 import classes from "./User.module.css";
-function User({ displayName,following }) {
+function User({user}) {
   return (
     <div className={classes.User}>
       <div className={classes.left}>
         <img className={classes.img}></img>
         <div className={classes.nameFollowing}>
-          <p className={classes.name}>{displayName}</p>
+          <p className={classes.name}>{user.displayName}</p>
           <p className={classes.following}>
-            Following:{following ? following.length : " 0 "}
+            Following:{user.following ? user.following.length : " 0 "}
           </p>
         </div>
       </div>
