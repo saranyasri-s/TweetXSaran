@@ -90,7 +90,9 @@ function Profile() {
       </div>
       <div>
         {params.id === "posts" && <Posts userLogged={userLogged}></Posts>}
-        {/* {params.id === "followers" && <Followers userLogged={userLogged}></Followers>} */}
+        {params.id === "followers" && (
+          <Followers userLogged={userLogged}></Followers>
+        )}
         {params.id === "following" && (
           <Following userLogged={userLogged}></Following>
         )}

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import User from "../Users/User";
 import classes from "./Following.module.css";
-import FollowersUser from "./FollowersUser";
+
 import { db } from "../../firebase"; // Adjust the path to your firebase.js file
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 function Following({ userLogged }) {
@@ -55,10 +55,7 @@ function Following({ userLogged }) {
       {console.log(following)}
       {console.log(uniqueArray)}
       {uniqueArray.map((user) => (
-        <FollowersUser
-          displayName={user.displayName}
-          following="true"
-        ></FollowersUser>
+        <User key={user.id} user={user}></User>
       ))}
     </div>
   );
