@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+// child component
 import User from "../Users/User";
+// css
 import classes from "./Following.module.css";
-
+// firebase
 import { db } from "../../firebase"; // Adjust the path to your firebase.js file
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+
 function Following({ userLogged }) {
   const [following, setFollowing] = useState([]);
   useEffect(() => {
@@ -52,7 +55,6 @@ function Following({ userLogged }) {
 
   return (
     <div className={classes.Following}>
-     
       {uniqueArray.map((user) => (
         <User key={user.id} user={user}></User>
       ))}

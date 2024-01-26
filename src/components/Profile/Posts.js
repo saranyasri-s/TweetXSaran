@@ -1,6 +1,9 @@
 import React from "react";
+// css
 import classes from "./Posts.module.css";
+// child component
 import SingleFeed from "../Feed/SingleFeed/SingleFeed";
+
 function Posts({ userLogged }) {
   return (
     <div className={classes.Posts}>

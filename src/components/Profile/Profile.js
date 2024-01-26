@@ -1,16 +1,25 @@
 import React, { useEffect, useState } from "react";
+// css
 import classes from "./Profile.module.css";
+
+// child component
 import Followers from "./Followers";
 import Following from "./Following";
-import { NavLink, Routes, Route, useParams } from "react-router-dom";
 import Posts from "./Posts";
+// route
+import { NavLink, Routes, Route, useParams } from "react-router-dom";
+
+// firebase
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase"; // Adjust the path to your firebase.js file
 import { getDatabase, ref, child, get } from "firebase/database";
 import firebase from "../../../src/firebase"; // Import the Firebase configuration from firebase.js
+
+// redux
 import { setUsers } from "../../store/UsersSlice";
 import { useSelector } from "react-redux";
 const database = getDatabase();
+
 function Profile() {
   const params = useParams();
   const userLogged = useSelector((state) => state.user);
@@ -104,21 +113,3 @@ function Profile() {
 }
 
 export default Profile;
-// displayName
-// :
-// "gowri"
-// email
-// :
-// "gowri@gmail.com"
-// followers
-// :
-// []
-// following
-// :
-// []
-// posts
-// :
-// [{…}]
-// uid
-// :
-// "VwIKqliVyUW7za3QI8JsflRvf3z1"
