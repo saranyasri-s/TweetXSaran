@@ -55,6 +55,18 @@ function Followers({ userLogged }) {
 
   return (
     <div className={classes.Followers}>
+      {uniqueArray.length === 0 && (
+        <p
+          style={{
+            color: "grey",
+            margin: "7rem auto",
+            width: "150px",
+            fontSize: "1.2rem",
+          }}
+        >
+          No followers
+        </p>
+      )}
       {uniqueArray.map((user) => (
         <User key={user.id} user={user}></User>
       ))}

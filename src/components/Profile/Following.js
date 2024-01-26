@@ -55,6 +55,18 @@ function Following({ userLogged }) {
 
   return (
     <div className={classes.Following}>
+      {uniqueArray.length === 0 && (
+        <p
+          style={{
+            color: "grey",
+            margin: "7rem auto",
+            width: "70%",
+            fontSize: "1.2rem",
+          }}
+        >
+          You are not following anyone yet
+        </p>
+      )}
       {uniqueArray.map((user) => (
         <User key={user.id} user={user}></User>
       ))}
