@@ -65,6 +65,7 @@
 @media (max-width: 900px) {
   .header > nav {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin-left: 1rem;
@@ -88,5 +89,23 @@
   }
   .tweetX {
     width: 40%;
+  }
+  .button {
+    margin-top: 1rem;
+    padding: 0.2rem;
+    color: white;
+    background-color: #ff000091;
+    border: 1px solid #ff000091;
+    border-radius: 5px;
+    font-size: 0.5rem;
+    cursor: pointer;
+    width: 50px;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    margin: 1rem;
+  }
+  .button:hover {
+    color: #ff000091;
+    background-color: white;
   }
 }

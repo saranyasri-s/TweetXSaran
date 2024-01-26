@@ -115,7 +115,7 @@ function SignUp({ handleAuthPageToLogin }) {
             posts: [
               {
                 postDetail: {
-                  post: "my first post",
+                  post: "My first post created automatically while signing up with TweetX",
                   time: new Date().toISOString(),
                 },
               },
