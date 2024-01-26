@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from "react";
+
+// css
 import classes from "./Feed.module.css";
+
+// child component
 import SingleFeed from "./SingleFeed/SingleFeed";
+
+// firebase
 import { db } from "../../firebase"; // Adjust the path to your firebase.js file
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+
+// redux
 import { setFollowing } from "../../store/FollowingSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../../store/UserSlice";
@@ -10,14 +18,13 @@ import { setUser } from "../../store/UserSlice";
 function Feed() {
   const [createNewPost, setCreateNewPost] = useState(false);
   const [newPost, setNewPost] = useState("");
-  const [myArray, setMyArray] = useState([]);
-
-  const dispatch = useDispatch();
-
   const userLogged = useSelector((state) => state.user);
   const [posts, setPosts] = useState([]);
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    //  adding the posts posted by the logged in user itself to the posts array
     for (let l = 0; l < userLogged.posts.length; l++) {
       let newPostDetail = {
         displayName: userLogged.displayName,
@@ -25,6 +32,9 @@ function Feed() {
       };
       setPosts((prevPosts) => [...prevPosts, newPostDetail]);
     }
+
+    // fetching all the users in the "following" list of the logged in user,
+    //  using user id and adding  the list of posts they posted to the posts state
 
     for (let i = 0; i < userLogged.following.length; i++) {
       const handleGetSingleUser = () => {
@@ -34,7 +44,6 @@ function Feed() {
             const userDoc = await getDoc(userDocRef);
 
             if (userDoc.exists()) {
-              // If the document exists, set the user state
               const followingMember = { ...userDoc.data(), id: userDoc.id };
               let postsNewPosts = [];
               for (let j = 0; j < followingMember.posts.length; j++) {
@@ -44,6 +53,7 @@ function Feed() {
                 };
                 postsNewPosts.push(newpost);
               }
+              // If the document exists, set the posts state with the user's posts
               setPosts((prevPosts) => [...prevPosts, ...postsNewPosts]);
             } else {
               // Handle the case where the user doesn't exist
@@ -59,6 +69,7 @@ function Feed() {
     }
   }, [userLogged]);
 
+  // adding new posts by user
   const handlePostChange = (e) => {
     e.preventDefault();
     setNewPost(e.target.value);
@@ -68,7 +79,7 @@ function Feed() {
       if (userLogged) {
         const userDocRef = doc(db, "users", userLogged.id);
 
-        // Update the user information
+        // Update the user information in firebase and the redux state
         const postCreated = {
           postDetail: { post: newPost, time: new Date().toISOString() },
         };
@@ -108,6 +119,8 @@ function Feed() {
     }
     return false;
   });
+
+  // sort the posts based on time posted
   const sortedPosts = [...uniquePosts].sort((a, b) => {
     const timeA = new Date(a.postDetail.time);
     const timeB = new Date(b.postDetail.time);
@@ -134,7 +147,7 @@ function Feed() {
             onChange={handlePostChange}
             maxLength={100}
           ></textarea>
-          <button className={classes.postButton} onClick={handleAddNewPost}>
+          <button className={classes.postButton} onClick={submitnewPost}>
             Post
           </button>
         </div>

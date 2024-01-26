@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
+// css
 import classes from "./SingleFeed.module.css";
+
+
 function SingleFeed({ postDetail, name, time }) {
+
+  // function to change the time created to timeStamp ( time ago)
   function timeAgo(timestamp) {
     const currentDate = new Date();
     const postDate = new Date(timestamp);
@@ -20,6 +25,7 @@ function SingleFeed({ postDetail, name, time }) {
       return `${days} day ago`;
     }
   }
+  
   return (
     <div className={classes.SingleFeed}>
       <div className={classes.upLowdiv}>
