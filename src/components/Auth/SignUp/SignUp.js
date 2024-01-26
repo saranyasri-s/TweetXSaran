@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+// css
 import classes from "./SignUp.module.css";
+
+// firebase
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../../../firebase";
 import { collection, addDoc } from "firebase/firestore";
 
-import axios from "axios";
-import { Routes, Route, NavLink, Navigate } from "react-router-dom";
 function SignUp({ handleAuthPageToLogin }) {
   const [name, setname] = useState("");
   const [nameError, setNameError] = useState("");
@@ -156,7 +157,6 @@ function SignUp({ handleAuthPageToLogin }) {
         } finally {
           setLoading(false); // Set loading to false after signup attempt (whether successful or not)
         }
-       
       };
       signUpUser(name, email, password);
     } else {
