@@ -16,7 +16,7 @@ function User({ user }) {
 
   const dispatch = useDispatch();
 
-  const handleUpdateUser = async () => {
+  const handleUpdateUser = async (followingIdTogetUpdatedAsFollower) => {
     try {
       if (userLogged) {
         const userDocRef = doc(db, "users", userLogged.id);
@@ -26,6 +26,41 @@ function User({ user }) {
           // Update with the new following list while follow button is clicked
           following: [...userLogged.following, user.id], // Add other fields you want to update
         });
+
+        const fetchUser = async (followingIdTogetUpdatedAsFollower) => {
+          try {
+            const userDocRef = doc(
+              db,
+              "users",
+              followingIdTogetUpdatedAsFollower
+            );
+            const userDoc = await getDoc(userDocRef);
+
+            if (userDoc.exists()) {
+              // If the document exists, set the user state
+              const followersMember = { ...userDoc.data() };
+
+              const userDocRef2 = doc(
+                db,
+                "users",
+                followingIdTogetUpdatedAsFollower
+              );
+
+              // Update the user information
+              await updateDoc(userDocRef2, {
+                // Update with the new following list while follow button is clicked
+                followers: [...followersMember.followers, userLogged.id], // Add other fields you want to update
+              });
+            } else {
+              // Handle the case where the user doesn't exist
+              console.log("User not found");
+            }
+          } catch (error) {
+            console.error("Error fetching user:", error.message);
+          }
+        };
+
+        fetchUser(followingIdTogetUpdatedAsFollower);
 
         // change the userlogged state in redux to new updated userLogged details
         dispatch(
@@ -65,7 +100,10 @@ function User({ user }) {
           Following
         </p>
       ) : (
-        <button onClick={handleUpdateUser} className={classes.button}>
+        <button
+          onClick={() => handleUpdateUser(user.id)}
+          className={classes.button}
+        >
           Follow
         </button>
       )}
