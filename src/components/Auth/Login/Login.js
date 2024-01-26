@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from "react";
+// css
 import classes from "./Login.module.css";
-import axios from "axios";
-import { Routes, Route, NavLink, Navigate } from "react-router-dom";
+// route
 import { useNavigate } from "react-router-dom";
-import { collection, getDocs } from "firebase/firestore";
-import { doc, getDoc } from "firebase/firestore";
+// firebase
 import { auth, db } from "../../../firebase"; // Adjust the path to your firebase.js file
 import { signInWithEmailAndPassword } from "firebase/auth";
+
+// redux
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../store/UserSlice";
+
 function Login() {
+  // inputs and the corresponding error is maintained in the local state
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setpassword] = useState("");
   const [pwdError, setPwdError] = useState("");
-  const [uid, setUid] = useSelector((state) => state.user.uid);
   const [isFormValid, setIsFormValid] = useState(false);
   const [loading, setLoading] = useState(false); // New loading state
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   // Validation functions
   const isEmailValid = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -80,9 +83,11 @@ function Login() {
           setEmailError("");
           setpassword("");
           setPwdError("");
+
+          //on successful login, navigate the user to dashboard page (ie users page)
           navigate("/users");
         } catch (error) {
-          console.error("Error logging in:", error.message);
+          alert(`Error logging in: ${error.message}`);
         } finally {
           setLoading(false); // Set loading to false after signup attempt (whether successful or not)
         }
