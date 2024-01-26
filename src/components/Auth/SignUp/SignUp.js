@@ -8,6 +8,7 @@ import { auth, db } from "../../../firebase";
 import { collection, addDoc } from "firebase/firestore";
 
 function SignUp({ handleAuthPageToLogin }) {
+  // inputs and the corresponding error is maintained in the local state
   const [name, setname] = useState("");
   const [nameError, setNameError] = useState("");
   const [email, setEmail] = useState("");
@@ -45,6 +46,7 @@ function SignUp({ handleAuthPageToLogin }) {
     setNameError(isValid ? "" : "Enter valid Name");
     return isValid;
   };
+
   // Update state and validate on input change
   const handleNameChange = (event) => {
     setname(event.target.value);
@@ -92,25 +94,6 @@ function SignUp({ handleAuthPageToLogin }) {
     if (validateForm()) {
       setLoading(true);
       const signUpUser = async (name, email, password) => {
-        // try {
-        //   const response = await axios.post(
-        //     "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBG1YDW2RDiPI3tcvtZ8jGZMm6FcGGU50U",
-        //     {
-        //       email: email,
-        //       password: password,
-        //       returnSecureToken: true,
-        //     }
-        //   );
-
-        //   // Handle the response or perform additional actions if needed
-        //   console.log("User signed up successfully:", response.data);
-        // } catch (error) {
-        //   // Handle errors, e.g., display an error message to the user
-        //   console.error(
-        //     "Error signing up user:",
-        //     error.response.data.error.message
-        //   );
-        // }
         try {
           const userCredential = await createUserWithEmailAndPassword(
             auth,
@@ -118,12 +101,13 @@ function SignUp({ handleAuthPageToLogin }) {
             password
           );
           const additionalUserInfo = {
-            displayName: name, // Replace with the user's name
-            // You can add more additional information as needed
+            displayName: name,
           };
 
-          // Update the user's profile with the additional information
+          // Update the user's profile with the additional information while signing up with email and password
           await updateProfile(userCredential.user, additionalUserInfo);
+
+          // adding the user details to the firestore database while signing up along with the automatically created first post
           const userDocRef = await addDoc(collection(db, "users"), {
             uid: userCredential.user.uid,
             email: userCredential.user.email,
@@ -138,11 +122,9 @@ function SignUp({ handleAuthPageToLogin }) {
             ],
             followers: [],
             following: [],
-            // Add more fields as needed
           });
-          console.log(userDocRef);
-          console.log("User created successfully:", userCredential.user);
-          console.log(userCredential);
+
+          //  setting the state to empty inputs
           setConfirmPassword("");
           setpassword("");
           setEmail("");
@@ -151,9 +133,14 @@ function SignUp({ handleAuthPageToLogin }) {
           setEmailError("");
           setPwdError("");
           setConfirmPwdError("");
+
+          // give a  alert to show sign in successful
+          alert(`User created successfully: Login to continue} `);
+
+          // redirect to login page
           handleAuthPageToLogin();
         } catch (error) {
-          console.log(error);
+          alert(error.message);
         } finally {
           setLoading(false); // Set loading to false after signup attempt (whether successful or not)
         }
