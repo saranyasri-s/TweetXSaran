@@ -1,19 +1,20 @@
 import React from "react";
+// css
 import classes from "./User.module.css";
+// firebase
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import axios from "axios";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../../src/firebase"; // Adjust the path to your firebase.js file
+// redux
 import { useSelector, useDispatch } from "react-redux";
-import { setUsers } from "../../store/UsersSlice";
 import { setUser } from "../../store/UserSlice";
 
 function User({ user }) {
   const users = useSelector((state) => state.users);
-  const dispatch = useDispatch();
   const targetUid = useSelector((state) => state.user.uid);
-
   const userLogged = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
 
   const handleUpdateUser = async () => {
     try {
@@ -22,9 +23,11 @@ function User({ user }) {
 
         // Update the user information
         await updateDoc(userDocRef, {
-          // Update with the new display name
+          // Update with the new following list while follow button is clicked
           following: [...userLogged.following, user.id], // Add other fields you want to update
         });
+
+        // change the userlogged state in redux to new updated userLogged details
         dispatch(
           setUser({
             ...userLogged,
@@ -36,6 +39,7 @@ function User({ user }) {
         console.log("User not found");
       }
     } catch (error) {
+      alert(`Error updating user:${error.message}`);
       console.error("Error updating user:", error.message);
     }
   };
@@ -65,7 +69,6 @@ function User({ user }) {
           Follow
         </button>
       )}
-      {/* <p className={classes.followingStatus} style={{ fontWeight: "600", color: "grey" }}>Following</p> */}
     </div>
   );
 }
